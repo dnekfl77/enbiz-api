@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.x2bee.api.common.app.repository.displayrwdb.inf.StInfLogTrxMapper">
+
+    <insert id="insertStInfLog" parameterType="stInfLog">
+    	<selectKey keyProperty="infLogSeq" resultType="String" order="BEFORE">
+			SELECT LPAD(CAST(NEXTVAL('st_inf_log_sq01') AS TEXT),15,'0') AS inf_log_seq
+		</selectKey>
+    	/* StInfLogTrxMapper.insertStInfLog */
+		insert into st_inf_log(
+			inf_log_seq,
+			inf_typ_cd,
+			req_rply_gb_cd,
+			inf_id,
+			req_url,
+			req_method,
+			req_her_val,
+			qry_str_prmt,
+			req_prmt_obj,
+			upr_inf_log_seq,
+			rply_stat_cd,
+			rply_her_val,
+			rply_cont,
+			sys_reg_id,
+			sys_reg_dtm,
+			sys_mod_id,
+			sys_mod_dtm,
+			sys_reg_menu_id,
+			sys_reg_ip_addr,
+			sys_mod_menu_id,
+			sys_mod_ip_addr
+		) values(
+			#{infLogSeq},
+			#{infTypCd},
+			#{reqRplyGbCd},
+			#{infId},
+			#{reqUrl},
+			#{reqMethod},
+			#{reqHerVal},
+			#{qryStrPrmt},
+			#{reqPrmtObj},
+			#{uprInfLogSeq},
+			#{rplyStatCd},
+			#{rplyHerVal},
+			#{rplyCont},
+			#{sysRegId},
+			now(),
+			#{sysRegId},
+			now(),
+			#{sysRegMenuId},
+			#{sysRegIpAddr},
+			#{sysRegMenuId},
+			#{sysRegIpAddr}
+		);
+	</insert>    
+    
+</mapper>

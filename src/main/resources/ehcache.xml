@@ -1,0 +1,19 @@
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns='http://www.ehcache.org/v3'
+	xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+
+	<cache-template name="myDefaults">
+		<key-type>java.lang.Object</key-type>
+		<value-type>java.lang.Object</value-type>
+		<expiry>
+			<ttl unit="seconds">300</ttl>
+		</expiry>
+		<resources>
+			<heap unit="entries">30</heap>
+			<offheap unit="MB">10</offheap>
+		</resources>
+	</cache-template>
+
+	<cache alias="simpleCache" uses-template="myDefaults" />
+
+</config>

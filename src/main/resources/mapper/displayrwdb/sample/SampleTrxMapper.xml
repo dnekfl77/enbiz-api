@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.x2bee.api.common.app.repository.displayrwdb.sample.SampleTrxMapper">
+	<sql id="sampleList">
+        SELECT 
+	        1 as id,
+	        'name1' as name,
+	        'desc1' as description
+	    union all
+        SELECT 
+	        2 as id,
+	        'name2' as name,
+	        'desc2' as description
+	    union all
+        SELECT 
+	        3 as id,
+	        'name3' as name,
+	        'desc3' as description
+	</sql>
+
+	
+    <!--
+    	전체 샘플 조회
+    -->
+    <select id="selectAllSamples" resultType="sampleResponse">
+    	/* SampleMapper.selectAllSamples */
+		<include refid="sampleList" />
+    </select>
+    
+    <!--
+    	샘플 단건 조회
+    -->
+    <select id="selectSampleById" parameterType="long" resultType="sampleResponse">
+    	/* SampleMapper.selectSampleById */
+    	select *
+    	from (
+        <include refid="sampleList" />
+        ) a
+        where id = #{id}
+    </select>
+    
+    <!--
+    	샘플 목록 조회
+    -->
+    <select id="selectSamples" parameterType="sampleRequest" resultType="sampleResponse">
+    	/* SampleMapper.selectSamples */
+    	select *
+    	from (
+        <include refid="sampleList" />
+        ) a
+        <where>
+        	<if test="id != null">
+        		and id = #{id}
+        	</if>
+        	<if test="name != null and name != ''">
+        		and name = #{name}
+        	</if>
+        	<if test="description != null and description != ''">
+        		and description = #{description}
+        	</if>
+        </where>
+    </select>
+
+    <insert id="insertStCrcCd" parameterType="map">
+    	<selectKey keyProperty="crcCd" resultType="String" order="BEFORE">
+			SELECT COALESCE(MAX(crc_cd::INTEGER), 0) + 1 as crcCd
+			FROM st_crc_cd
+		</selectKey>
+    	/* SampleMapper.insertStCrcCd */
+		INSERT INTO st_crc_cd
+		(crc_cd, crc_nm, sort_seq, use_yn, sys_reg_id, sys_reg_dtm, sys_mod_id, sys_mod_dtm, sys_reg_menu_id, sys_reg_ip_addr, sys_mod_menu_id, sys_mod_ip_addr)
+		VALUES(#{crcCd}, 'testCrcNm', 0, 'N', 'testid', now(), 'testid', now(), 'EMPTY', 'EMPTY', 'EMPTY', 'EMPTY');
+	</insert>    
+    
+</mapper>
