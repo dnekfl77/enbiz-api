@@ -8,13 +8,13 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.x2bee</groupId>
-	<artifactId>x2bee-api-sample</artifactId>
+	<groupId>com.enbiz</groupId>
+	<artifactId>enbiz-api-sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>x2bee-api-sample</name>
-	<description>x2bee-api-sample</description>
+	<name>enbiz-api-sample</name>
+	<description>enbiz-api-sample</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -104,8 +104,8 @@
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 			<version>3.8.1</version><!--$NO-MVN-MAN-VER$--><!-- 2021/05/23 현재 최신 버전 -->
-		</dependency>		
-		
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -130,55 +130,13 @@
 
 	<!-- // Nexus Setting -->
 	<repositories>
-		<repository>
-			<id>shapshot</id>
-			<url>https://nexus.inner-thehandsome.com/repository/thehandsome-snapshot</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>release</id>
-			<url>https://nexus.inner-thehandsome.com/repository/thehandsome-release</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
+		<!-- Repo -->
 	</repositories>
 	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>Maven Plugin Repository</name>
-			<url>https://nexus.inner-thehandsome.com/repository/maven-central</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
+		<!-- Repo -->
 	</pluginRepositories>
 	<distributionManagement>
-		<repository>
-			<id>release</id>
-			<url>https://nexus.inner-thehandsome.com/repository/thehandsome-hosted-release</url>
-			<layout>default</layout>
-			<uniqueVersion>false</uniqueVersion>
-		</repository>
-		<snapshotRepository>
-			<id>shapshot</id>
-			<url>https://nexus.inner-thehandsome.com/repository/thehandsome-hosted-snapshot</url>
-			<layout>default</layout>
-		</snapshotRepository>
+		<!-- Repo -->
 	</distributionManagement>
 
 </project>
