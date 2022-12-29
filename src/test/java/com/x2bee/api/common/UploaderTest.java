@@ -49,6 +49,7 @@ public class UploaderTest {
 		
 		// 파일업로드 결과
 		if ("00".equals(retMap.get("cd")) ) { // S3 정상 업로드인경우
+			@SuppressWarnings("unchecked")
 			UploadResDto uploadResDto = (UploadResDto)((Map<String, Object>)retMap.get("data")).get("data");
 
 			Map<String,String> fileInfo = new HashMap<>();
@@ -102,6 +103,7 @@ public class UploaderTest {
         Assertions.assertEquals(retMap.get("cd"), "00");
 
         // update 된 파일 Key값
+		@SuppressWarnings("unchecked")
 		UploadResDto uploadResDto = (UploadResDto)((Map<String, Object>)retMap.get("data")).get("data");
     	String uploadFileUrl = uploadResDto.getFullPath();
 

@@ -49,6 +49,7 @@ public class SampleServiceImpl implements SampleService {
 		return sampleMapper.selectSamples(sampleRequest);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void registerCrcCd() throws Exception {
 		Map<String,Object> params = new HashMap<>();

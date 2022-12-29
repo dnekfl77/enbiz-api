@@ -28,6 +28,7 @@ public class VideoUploaderTest {
 	private Uploader videoUploader;
 	
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void upload() {
 		MockMultipartFile file = new MockMultipartFile(
@@ -84,6 +85,7 @@ public class VideoUploaderTest {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void deleteFile() {
 		// 파일업로드
