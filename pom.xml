@@ -111,6 +111,14 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<dependency>
+			<groupId>NiceID</groupId>
+			<artifactId>NiceID</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/NiceID-1.0.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
