@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.x2bee.api.common.app.repository.displayrwdb.order.OrdTrxMapper">
+
+	<insert id="save" parameterType="com.x2bee.api.common.app.entity.Ord">
+		insert into ord (
+			order_no,
+			goods_name,
+			goods_price,
+			buyer_name,
+			buyer_phone,
+			buyer_email,
+			target_pg,
+			create_dt
+		)
+		values (
+			#{orderNo},
+			#{goodsName},
+			#{goodsPrice},
+			#{buyerName},
+			#{buyerPhone},
+			#{buyerEmail},
+			#{targetPg},
+			now()
+		)
+	</insert>
+</mapper>

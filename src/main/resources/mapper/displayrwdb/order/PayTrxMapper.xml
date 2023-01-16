@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.x2bee.api.common.app.repository.displayrwdb.order.PayTrxMapper">
+
+	<insert id="save" parameterType="com.x2bee.api.common.app.entity.Pay">
+		INSERT INTO pay (
+			order_no,
+			res_msg,
+			res_cd,
+			pg_txid,
+			amount,
+			trace_no,
+			tno,
+			pay_method,
+			pay_state
+		)
+		VALUES (
+			#{orderNo},
+			#{resMsg},
+			#{resCd},
+			#{pgTxid},
+			#{amount},
+			#{traceNo},
+			#{tno},
+			#{payMethod},
+			#{payState}
+		)
+	</insert>
+	
+	<update id="cancel" parameterType="com.x2bee.api.common.app.entity.Pay">
+		UPDATE pay
+		<set>
+			pay_state = #{payState},
+		</set>
+		<where>
+			AND id = #{id}
+		</where>
+	</update>
+</mapper>

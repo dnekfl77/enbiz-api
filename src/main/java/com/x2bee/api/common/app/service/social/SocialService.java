@@ -5,7 +5,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.x2bee.api.common.app.entity.SocialRequest;
+import com.x2bee.api.common.app.dto.request.accounts.SocialRequest;
 import com.x2bee.api.common.app.enums.GenderType;
 import com.x2bee.api.common.app.enums.SocialType;
 import com.x2bee.common.base.util.PhoneNoUtils.PhoneNo;

@@ -123,11 +123,11 @@ spring:
   displayrodb:
     datasource:
       #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-ro-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      jdbc-url: jdbc:log4jdbc:postgresql://thm-dev-product-cluster.cluster-ro-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
+      jdbc-url: jdbc:log4jdbc:postgresql://localhost:5432/postgres?currentSchema=public
       #driver-class-name: org.postgresql.Driver
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
-      username: pd_app
-      password: ENC(e7lXJrDTkUzD3rvwlxc/2K3tenx+CP4V4cErGh7k0/v0zwpNHOgsaNOaX5hIOQgU)
+      username: enbiz
+      password: ENC(CE0ByNhs5BdJ1rBWr2LIqeNavBEW12oQdk/+16YJeeV71ZT1+HdBh/l6p2K7F/hs)
       hikari:
         maximum-pool-size: 5
         minimum-idle: 5
@@ -138,11 +138,11 @@ spring:
   displayrwdb:
     datasource:
       #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      jdbc-url: jdbc:log4jdbc:postgresql://thm-dev-product-cluster.cluster-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
+      jdbc-url: jdbc:log4jdbc:postgresql://localhost:5432/postgres?currentSchema=public
       #driver-class-name: org.postgresql.Driver
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
-      username: pd_app
-      password: ENC(e7lXJrDTkUzD3rvwlxc/2K3tenx+CP4V4cErGh7k0/v0zwpNHOgsaNOaX5hIOQgU)
+      username: enbiz
+      password: ENC(CE0ByNhs5BdJ1rBWr2LIqeNavBEW12oQdk/+16YJeeV71ZT1+HdBh/l6p2K7F/hs)
       hikari:
         maximum-pool-size: 5
         minimum-idle: 5

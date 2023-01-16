@@ -105,7 +105,6 @@
 			<artifactId>ehcache</artifactId>
 			<version>3.8.1</version><!--$NO-MVN-MAN-VER$--><!-- 2021/05/23 현재 최신 버전 -->
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>

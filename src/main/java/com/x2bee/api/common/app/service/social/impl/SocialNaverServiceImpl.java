@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.x2bee.api.common.app.entity.SocialRequest;
+import com.x2bee.api.common.app.dto.request.accounts.SocialRequest;
 import com.x2bee.api.common.app.enums.SocialType;
 import com.x2bee.api.common.app.service.social.SocialNaverService;
 import com.x2bee.common.base.util.StringFormatter;

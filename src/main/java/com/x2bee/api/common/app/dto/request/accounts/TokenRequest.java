@@ -1,4 +1,4 @@
-package com.x2bee.api.common.app.entity;
+package com.x2bee.api.common.app.dto.request.accounts;
 
 import javax.validation.constraints.NotEmpty;
 

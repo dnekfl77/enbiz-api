@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.x2bee.api.common.app.entity.SocialRequest;
+import com.x2bee.api.common.app.dto.request.accounts.SocialRequest;
 import com.x2bee.api.common.app.enums.SocialType;
 import com.x2bee.api.common.app.service.social.SocialService;
 import com.x2bee.api.common.app.service.social.SocialService.SocialUser;
