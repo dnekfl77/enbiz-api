@@ -17,7 +17,13 @@ payment:
     kcpPaymentUrl: https://stg-spl.kcp.co.kr/gw/enc/v1/payment
     kcpPaymentCancelUrl: https://stg-spl.kcp.co.kr/gw/mod/v1/cancel
     kcpTradeRegUrl: https://stg-spl.kcp.co.kr/std/tradeReg/register
-    
+
+  inicis:
+    mid: INIpayTest
+    password: inicis~1111
+    signKey: SU5JTElURV9UUklQTEVERVNfS0VZU1RS
+    jsUrl: https://stgstdpay.inicis.com/stdjs/INIStdPay.js
+
 nice:
   cert:
     siteCode: G7375

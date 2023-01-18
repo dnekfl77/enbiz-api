@@ -25,16 +25,20 @@ public class PaymentController {
 
 	private final OrderService orderService;
 	
-	@GetMapping("/payInfo")
-	public Response<Map<String, Object>> fetchPayInfo() {
-		log.debug("request: ");
-
-		return new Response<Map<String, Object>>().setPayload(orderService.payInfo());
+	@GetMapping("/kcpPayInfo")
+	public Response<Map<String, Object>> kcpPayInfo() {
+		return new Response<Map<String, Object>>().setPayload(orderService.kcpPayInfo());
+	}
+	
+	@GetMapping("/inicisPayInfo")
+	public Response<Map<String, Object>> inicisPayInfo() {
+		return new Response<Map<String, Object>>().setPayload(orderService.inicisPayInfo());
 	}
 
 	@PostMapping("/approve")
 	public Response<Map<String, Object>> approve(@RequestBody Map<String, Object> params) {
-		log.debug("params: {}", params);
+		log.debug("params: {}", params.keySet());
+		log.debug("params.authToken: {}", params.get("authToken"));
 
 		return new Response<Map<String, Object>>().setPayload(orderService.saveOrder(params));
 	}

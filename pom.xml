@@ -118,6 +118,15 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/NiceID-1.0.jar</systemPath>
 		</dependency>
+		
+		<dependency>
+			<groupId>INIpaySample</groupId>
+			<artifactId>INIpaySample</artifactId>
+			<version>v1.3</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/INIpaySample_v1.3.jar</systemPath>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
