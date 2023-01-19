@@ -32,6 +32,7 @@
 		UPDATE pay
 		<set>
 			pay_state = #{payState},
+			update_dt = now(),
 		</set>
 		<where>
 			AND id = #{id}

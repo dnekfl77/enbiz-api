@@ -1,15 +1,20 @@
 package com.x2bee.api.common.app.service.order.impl;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.underscore.U;
 import com.google.common.base.Joiner;
@@ -179,14 +184,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void cancelOrder(Map<String, Object> params) {
 		payTrxMapper.cancel(Pay.builder()
 				.id(MapUtils.getLong(params, "id"))
 				.payState(PayState.CANCEL)
 				.build());
 		
-		kcpPayService.cancel(MapUtils.getString(params, "tno"), ModType.STSC, 
-				MapUtils.getLong(params, "amount"), MapUtils.getLong(params, "amount"), "cancel", null);
+		if (StringUtils.equals(MapUtils.getString(params, "target_pg"), "KCP")) {
+			kcpPayService.cancel(MapUtils.getString(params, "tno"), ModType.STSC, 
+					MapUtils.getLong(params, "amount"), MapUtils.getLong(params, "amount"), "cancel", null);
+		} else {
+			inicisPayService.cancel(MapUtils.getString(params, "payMethod"), "Refund", 
+					MapUtils.getString(params, "traceNo"), "127.0.0.1", "INIpayTest", MapUtils.getString(params, "tno"), "취소요청");
+		}
 	}
 	
 	@Override
@@ -198,7 +209,12 @@ public class OrderServiceImpl implements OrderService {
 				.payState(PayState.CANCEL)
 				.build());
 		
-		kcpPayService.cancel(pay.getTno(), ModType.STSC, pay.getAmount(), pay.getAmount(), "cancel", null);
+		if (request.getTargetPg() == TargetPg.KCP) {
+			kcpPayService.cancel(pay.getTno(), ModType.STSC, pay.getAmount(), pay.getAmount(), "cancel", null);
+		} else {
+			inicisPayService.cancel(pay.getPayMethod(), "Refund", DateFormatUtils.format(Date.from(Instant.now()), "yyyyMMddhhmmss"),
+					"127.0.0.1", "INIpayTest",  pay.getTno(), "취소요청");
+		}
 	}
 	
 	private String generateOrderNo() {

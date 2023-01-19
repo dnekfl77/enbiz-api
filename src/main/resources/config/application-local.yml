@@ -23,6 +23,7 @@ payment:
     password: inicis~1111
     signKey: SU5JTElURV9UUklQTEVERVNfS0VZU1RS
     jsUrl: https://stgstdpay.inicis.com/stdjs/INIStdPay.js
+    cancelUrl: https://iniapi.inicis.com/api/v1/refund
 
 nice:
   cert:

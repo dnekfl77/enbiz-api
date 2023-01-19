@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.google.common.collect.ImmutableMap;
 import com.inicis.std.util.SignatureUtil;
 import com.x2bee.api.common.app.service.payment.InicisPayService;
+import com.x2bee.api.common.base.utils.ShaCryptUtils;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.logging.LogLevel;
@@ -28,6 +30,11 @@ import reactor.netty.transport.logging.AdvancedByteBufFormat;
 @Lazy
 @Slf4j
 public class InicisPayServiceImpl implements InicisPayService {
+	
+	private static String key = "ItEQKi3rY7uvDS8l";
+	
+	@Value("${payment.inicis.cancelUrl:}")
+	private String inicisCancelUrl;
 
 	private static HttpClient httpClient = HttpClient.create()
 			.wiretap("reactor.netty.http.client.HttpClient", LogLevel.DEBUG, AdvancedByteBufFormat.TEXTUAL)
@@ -59,10 +66,33 @@ public class InicisPayServiceImpl implements InicisPayService {
 
 			return response.block();		
 		} finally {
-			netCancel(netCancelUrl, mid, authToken, timestamp);	
+			// netCancel(netCancelUrl, mid, authToken, timestamp);	
 		}
 	}
 
+	@Override
+	public Map<String, Object> cancel(String payMethod, String type, String timestamp, String clientIp, String mid, String tid, String msg) {
+		var webClient = WebClient.builder()
+				.clientConnector(new ReactorClientHttpConnector(httpClient))
+				.build();
+// key + type + paymethod + timestamp + clientIp + mid + tid;
+		var response = webClient.post()
+				.uri(inicisCancelUrl)
+				.body(BodyInserters.fromFormData("type", type)
+						.with("paymethod", payMethod)
+						.with("timestamp", timestamp)
+						.with("clientIp", clientIp)
+						.with("mid", mid/*"INIpayTest"*/)
+						.with("tid", tid)
+						.with("msg", "취소요청")
+						.with("hashData", ShaCryptUtils.encryptSha512(key, type, payMethod, timestamp, clientIp, mid, tid)))
+				.retrieve()
+				.bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+				;
+
+		return response.block();
+	}
+	
 	private void netCancel(String netCancelUrl, String mid, String authToken, String timestamp) {
 		var webClient = WebClient.builder()
 				.clientConnector(new ReactorClientHttpConnector(httpClient))
