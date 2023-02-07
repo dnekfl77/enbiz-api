@@ -8,9 +8,15 @@ import com.x2bee.api.common.app.dto.response.order.OrdResponse;
 
 public interface OrderService {
 
+	Map<String, Object> payInfo();
+
 	Map<String, Object> kcpPayInfo();
 
 	Map<String, Object> inicisPayInfo();
+
+	Map<String, Object> kakaoPayReady(Map<String, Object> params);
+
+	Map<String, Object> naverPayInfo();
 
 	Map<String, Object> saveOrder(Map<String, Object> request);
 
@@ -19,5 +25,6 @@ public interface OrderService {
 	void cancelOrder(Map<String, Object> params);
 
 	void cancelOrder(OrdRequest request);
+
 
 }

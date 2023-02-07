@@ -34,7 +34,25 @@ public class PaymentController {
 	public Response<Map<String, Object>> inicisPayInfo() {
 		return new Response<Map<String, Object>>().setPayload(orderService.inicisPayInfo());
 	}
+	
+	@GetMapping("/socialPayInfo")
+	public Response<Map<String, Object>> socialPayInfo() {
+		return new Response<Map<String, Object>>().setPayload(U.objectBuilder()
+				.add(orderService.payInfo())
+				.add("naverPay", orderService.naverPayInfo())
+				.build());
+	}
 
+	@PostMapping("/kakaoPayReady")
+	public Response<Map<String, Object>> kakaoPayReady(@RequestBody Map<String, Object> params) {
+		log.debug("params: {}", params);
+		
+		return new Response<Map<String, Object>>().setPayload(U.objectBuilder()
+				.add(orderService.payInfo())
+				.add("kakaoPay", orderService.kakaoPayReady(params))
+				.build());
+	}
+	
 	@PostMapping("/approve")
 	public Response<Map<String, Object>> approve(@RequestBody Map<String, Object> params) {
 		log.debug("params: {}", params.keySet());

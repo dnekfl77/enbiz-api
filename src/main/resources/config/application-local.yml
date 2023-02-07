@@ -25,6 +25,22 @@ payment:
     jsUrl: https://stgstdpay.inicis.com/stdjs/INIStdPay.js
     cancelUrl: https://iniapi.inicis.com/api/v1/refund
 
+  naver:
+    jsUrl: https://nsp.pay.naver.com/sdk/js/naverpay.min.js
+    mode: development
+    paymentUrl: https://dev.apis.naver.com/naverpay-partner/naverpay/payments/v2/apply/payment
+    cancelUrl: https://dev.apis.naver.com/naverpay-partner/naverpay/payments/v1/cancel
+    confirmUrl: https://dev.apis.naver.com/naverpay-partner/naverpay/payments/v1/purchase-confirm
+    clientId: u86j4ripEt8LRfPGzQ8
+    clientSecret: ACjGCciGb6
+
+  kakao:
+    adminKey: 50aff3a2dafab15ad39c1092c3acaa58
+    cid: TC0ONETIME
+    readyUrl: https://kapi.kakao.com/v1/payment/ready
+    approveUrl: https://kapi.kakao.com/v1/payment/approve
+    cancelUrl: https://kapi.kakao.com/v1/payment/cancel
+
 nice:
   cert:
     siteCode: G7375

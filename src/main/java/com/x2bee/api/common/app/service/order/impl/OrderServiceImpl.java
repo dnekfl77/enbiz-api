@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.underscore.U;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.inicis.std.util.SignatureUtil;
 import com.x2bee.api.common.app.dto.request.order.OrdRequest;
 import com.x2bee.api.common.app.dto.response.order.OrdResponse;
@@ -32,6 +31,7 @@ import com.x2bee.api.common.app.repository.displayrwdb.order.OrdTrxMapper;
 import com.x2bee.api.common.app.repository.displayrwdb.order.PayTrxMapper;
 import com.x2bee.api.common.app.service.order.OrderService;
 import com.x2bee.api.common.app.service.payment.InicisPayService;
+import com.x2bee.api.common.app.service.payment.KakaoPayService;
 import com.x2bee.api.common.app.service.payment.KcpPayService;
 import com.x2bee.api.common.app.service.payment.KcpPayService.ModType;
 
@@ -59,10 +59,23 @@ public class OrderServiceImpl implements OrderService {
 	@Value("${payment.inicis.jsUrl}")
 	private String inicisJsUrl;
 	
-//    mid: INIpayTest
-//    password: inicis~1111
-//    signKey: SU5JTElURV9UUklQTEVERVNfS0VZU1RS
-//    jsUrl: https://stgstdpay.inicis.com/stdjs/INIStdPay.js
+	@Value("${payment.naver.jsUrl}")
+	private String naverPayJsUrl;
+	@Value("${payment.naver.mode:development}")
+	private String naverMode;
+	@Value("${payment.naver.clientId}")
+	private String naverClientId;
+	
+	@Value("${payment.kakao.adminKey:}")
+	private String adminKey;
+	@Value("${payment.kakao.cid:}")
+	private String cid;
+	@Value("${payment.kakao.readyUrl:}")
+	private String readyUrl;
+	@Value("${payment.kakao.approveUrl:}")
+	private String approveUrl;
+	@Value("${payment.kakao.cancelUrl:}")
+	private String cancelUrl;
 	
 //	private final PayMapper payMapper;
 	private final OrdMapper ordMapper;
@@ -71,7 +84,19 @@ public class OrderServiceImpl implements OrderService {
 	
 	private final KcpPayService kcpPayService;
 	private final InicisPayService inicisPayService;
+	private final KakaoPayService kakaoPayService;
 
+	@Override
+	public Map<String, Object> payInfo() {
+		log.debug("payInfo");
+		
+		return U.objectBuilder()
+				.add("orderXxx", generateOrderNo())
+				.add("goodName", "test_good_name")
+				.add("goodMny", 1004)
+				.build();
+	}
+	
 	@Override
 	public Map<String, Object> kcpPayInfo() {
 		log.debug("kcpPayInfo");
@@ -101,13 +126,29 @@ public class OrderServiceImpl implements OrderService {
 				.add("goodMny", 1004)
 				.build());
 	}
+	
+	@Override
+	public Map<String, Object> naverPayInfo() {
+		log.debug("naverPayInfo");
+		
+		return U.objectBuilder()
+				.add("jsUrl", naverPayJsUrl)
+				.add("mode", naverMode)
+				.add("clientId", naverClientId)
+				.build();
+	}
 
 	@Override
 	public Map<String, Object> saveOrder(Map<String, Object> request) {
-		if (StringUtils.equals(MapUtils.getString(request, "target_pg"), "KCP")) {
+		var targetPg = MapUtils.getString(request, "target_pg");
+		if (StringUtils.equals(targetPg, "KCP")) {
 			return kcpSaveOrder(request);
-		} else {
+		} else if (StringUtils.equals(targetPg, "INICIS")) {
 			return inicisSaveOrder(request);
+		} else if (StringUtils.equals(targetPg, "KAKAO")) {
+			return kakaoSaveOrder(request);
+		} else {
+			return U.objectBuilder().add("message", "Not suppported.").build();
 		}
 	}
 
@@ -175,12 +216,60 @@ public class OrderServiceImpl implements OrderService {
 				.payState(PayState.COMPLETE)
 				.build());
 
-		return Maps.newHashMap();
+		return approveResult;
 	}
-	
+
+	private Map<String, Object> kakaoSaveOrder(Map<String, Object> request) {
+		var approveResult = kakaoPayService.approve(request);
+		@SuppressWarnings("unchecked")
+		var amountResult = (Map<String, Object>) approveResult.get("amount");
+
+		log.debug("approveResult: {}", approveResult);
+
+		ordTrxMapper.save(Ord.builder()
+				.orderNo(MapUtils.getString(approveResult, "partner_order_id"))
+				.goodsName(MapUtils.getString(approveResult, "item_name"))
+				.goodsPrice(MapUtils.getLong(amountResult, "total", 0L))
+				.buyerName(MapUtils.getString(request, "buyerName"))
+				.buyerPhone(MapUtils.getString(request, "buyerTel"))
+				.buyerEmail(MapUtils.getString(request, "buyerEmail"))
+				.targetPg(TargetPg.KAKAO)
+				.build());
+
+		payTrxMapper.save(Pay.builder()
+				.orderNo(MapUtils.getString(approveResult, "partner_order_id"))
+				.resMsg("Success")
+				.resCd("NONE")
+				.pgTxid(MapUtils.getString(approveResult, "aid"))
+				.amount(MapUtils.getLong(amountResult, "total", 0L))
+				.traceNo(MapUtils.getString(approveResult, "tid"))
+				.tno(MapUtils.getString(approveResult, "tid"))
+				.payMethod(MapUtils.getString(approveResult, "payment_method_type"))
+				.payState(PayState.COMPLETE)
+				.build());
+		
+		return approveResult;
+	}
+
 	@Override
 	public List<OrdResponse> listOrder(OrdRequest request) {
 		return ordMapper.listByRequest(request);
+	}
+
+	@Override
+	public Map<String, Object> kakaoPayReady(Map<String, Object> request) {
+		return U.objectBuilder()
+				.add(kakaoPayService.ready(MapUtils.getString(request, "partnerOrderId"),
+						MapUtils.getString(request, "partnerUserId"),
+						MapUtils.getString(request, "itemName"),
+						MapUtils.getLong(request, "quantity", 0L),
+						MapUtils.getLong(request, "totalAmount", 0L),
+						MapUtils.getString(request, "approvalUrl"),
+						MapUtils.getString(request, "cancelUrl"),
+						MapUtils.getString(request, "failUrl")))
+				.add("partnerOrderId", MapUtils.getString(request, "partnerOrderId"))
+				.add("partnerUserId", MapUtils.getString(request, "partnerUserId"))
+				.build();
 	}
 	
 	@Override

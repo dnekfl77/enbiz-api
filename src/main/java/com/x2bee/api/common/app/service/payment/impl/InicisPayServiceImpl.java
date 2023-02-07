@@ -93,7 +93,8 @@ public class InicisPayServiceImpl implements InicisPayService {
 		return response.block();
 	}
 	
-	private void netCancel(String netCancelUrl, String mid, String authToken, String timestamp) {
+	@Override
+	public Map<String, Object> netCancel(String netCancelUrl, String mid, String authToken, String timestamp) {
 		var webClient = WebClient.builder()
 				.clientConnector(new ReactorClientHttpConnector(httpClient))
 				.build();
@@ -110,7 +111,7 @@ public class InicisPayServiceImpl implements InicisPayService {
 				.bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
 				;
 
-		response.block();
+		return response.block();
 	}
 
 	private String generateSignature(String authToken, String timestamp) {
