@@ -41,6 +41,10 @@ payment:
     approveUrl: https://kapi.kakao.com/v1/payment/approve
     cancelUrl: https://kapi.kakao.com/v1/payment/cancel
 
+  toss:
+    apiKey: sk_test_w5lNQylNqa5lNQe013Nq
+    paymentsUrl: https://pay.toss.im/api/v2/payments
+
 nice:
   cert:
     siteCode: G7375
