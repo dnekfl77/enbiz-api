@@ -142,7 +142,7 @@ spring:
       #driver-class-name: org.postgresql.Driver
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
       username: enbiz
-      password: ENC(CE0ByNhs5BdJ1rBWr2LIqeNavBEW12oQdk/+16YJeeV71ZT1+HdBh/l6p2K7F/hs)
+      password: enbiz
       hikari:
         maximum-pool-size: 5
         minimum-idle: 5

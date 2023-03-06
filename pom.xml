@@ -110,23 +110,18 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>NiceID</groupId>
 			<artifactId>NiceID</artifactId>
 			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/NiceID-1.0.jar</systemPath>
 		</dependency>
-		
+
 		<dependency>
-			<groupId>INIpaySample</groupId>
-			<artifactId>INIpaySample</artifactId>
-			<version>v1.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/INIpaySample_v1.3.jar</systemPath>
+			<groupId>INIpay</groupId>
+			<artifactId>INIpay</artifactId>
+			<version>1.0</version>
 		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -152,6 +147,11 @@
 	<!-- // Nexus Setting -->
 	<repositories>
 		<!-- Repo -->
+		<repository>   
+			<id>local-repo</id>   
+			<name>local-repo</name>   
+			<url>file://${project.basedir}/libs</url> 
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<!-- Repo -->
