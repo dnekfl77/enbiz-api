@@ -36,10 +36,10 @@
 		<logger name="reactor.netty.http.client" additivity="false" level="debug">
 			<appender-ref ref="COLOR_STDOUT"></appender-ref>
 		</logger>
-		<logger name="com.x2bee.common" additivity="false" level='debug'>
+		<logger name="com.enbiz.common" additivity="false" level='debug'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
-		<logger name="com.x2bee.api" additivity="false" level='debug'>
+		<logger name="com.enbiz.api" additivity="false" level='debug'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
 		<root level="info">
@@ -51,10 +51,10 @@
 		<logger name="reactor.netty.http.client" additivity="false" level="debug">
 			<appender-ref ref="COLOR_STDOUT"></appender-ref>
 		</logger>
-		<logger name="com.x2bee.common" additivity="false" level='debug'>
+		<logger name="com.enbiz.common" additivity="false" level='debug'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
-		<logger name="com.x2bee.api" additivity="false" level='debug'>
+		<logger name="com.enbiz.api" additivity="false" level='debug'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
 		<root level="info">
@@ -63,10 +63,10 @@
 	</springProfile>
 
 	<springProfile name="prd">
-		<logger name="com.x2bee.common" additivity="false" level='warn'>
+		<logger name="com.enbiz.common" additivity="false" level='warn'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
-		<logger name="com.x2bee.api" additivity="false" level='warn'>
+		<logger name="com.enbiz.api" additivity="false" level='warn'>
 			<appender-ref ref="COLOR_STDOUT" />
 		</logger>
 		<root level="info">

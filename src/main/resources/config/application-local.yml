@@ -42,8 +42,12 @@ payment:
     cancelUrl: https://kapi.kakao.com/v1/payment/cancel
 
   toss:
+    jsUrl: https://js.tosspayments.com/v1/payment
+    clientKey: test_ck_GKNbdOvk5rkamJ0A1lq3n07xlzmj
+    secretKey: test_sk_lpP2YxJ4K871zogdjvvVRGZwXLOb
     apiKey: sk_test_w5lNQylNqa5lNQe013Nq
     paymentsUrl: https://pay.toss.im/api/v2/payments
+    approveUrl: https://api.tosspayments.com/v1/payments/confirm
 
 nice:
   cert:

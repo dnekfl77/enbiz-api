@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.enbiz.api.common.app.repository.main.account.AccountTrxMapper">
+
+	<insert id="save" parameterType="com.enbiz.api.common.app.entity.Account">
+		INSERT INTO account (
+			username,
+			passwd,
+			"name",
+			phone_no,
+			email,
+			social_type,
+			social_token,
+			create_dt,
+			update_dt
+		)
+		VALUES(
+			#{username},
+			#{passwd},
+			#{name},
+			#{phoneNo},
+			#{email},
+			#{socialType},
+			#{socialToken},
+			NOW(),
+			NOW()
+		)
+	</insert>
+</mapper>

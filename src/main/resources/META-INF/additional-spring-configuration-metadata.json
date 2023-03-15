@@ -1,0 +1,117 @@
+{"properties": [
+  {
+    "name": "spring.datasource.main.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.main.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.main.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.username'"
+  },
+  {
+    "name": "spring.datasource.main.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.password'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.maximum-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.maximum-pool-size'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.minimum-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.minimum-idle'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.connection-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.connection-timeout'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.validation-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.validation-timeout'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.max-lifetime",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.max-lifetime'"
+  },
+  {
+    "name": "spring.datasource.main.hikari.idle-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.main.hikari.idle-timeout'"
+  },
+  {
+    "name": "spring.datasource.replica.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.replica.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.replica.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.username'"
+  },
+  {
+    "name": "spring.datasource.replica.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.password'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.maximum-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.maximum-pool-size'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.minimum-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.minimum-idle'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.connection-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.connection-timeout'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.validation-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.validation-timeout'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.max-lifetime",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.max-lifetime'"
+  },
+  {
+    "name": "spring.datasource.replica.hikari.idle-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.replica.hikari.idle-timeout'"
+  },
+  {
+    "name": "jwt.service.key",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.service.key'"
+  },
+  {
+    "name": "jwt.member.access.key",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.member.access.key'"
+  },
+  {
+    "name": "jwt.member.refresh.key",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.member.refresh.key'"
+  }
+]}
