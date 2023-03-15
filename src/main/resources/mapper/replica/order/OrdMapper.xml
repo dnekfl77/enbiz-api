@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.enbiz.api.common.app.repository.displayrodb.order.OrdMapper">
+
+	<select id="listByRequest" parameterType="com.enbiz.api.common.app.dto.request.order.OrdRequest"
+		resultType="com.enbiz.api.common.app.dto.response.order.OrdResponse">
+		SELECT
+			ord.order_no,
+			ord.goods_name,
+			ord.goods_price,
+			ord.buyer_name,
+			ord.buyer_phone,
+			ord.buyer_email,
+			ord.target_pg,
+			ord.create_dt,
+			ord.update_dt,
+			pay.id as "pay.id",
+			pay.res_msg as "pay.res_msg",
+			pay.res_cd as "pay.res_cd",
+			pay.pg_txid as "pay.pg_txid",
+			pay.amount as "pay.amount",
+			pay.trace_no as "pay.trace_no",
+			pay.tno as "pay.tno",
+			pay.pay_method as "pay.pay_method",
+			pay.pay_state as "pay.pay_state",
+			pay.create_dt as "pay.create_dt",
+			pay.update_dt as "pay.update_dt"
+		FROM ord
+			LEFT JOIN pay ON ord.order_no = pay.order_no
+	</select>
+</mapper>

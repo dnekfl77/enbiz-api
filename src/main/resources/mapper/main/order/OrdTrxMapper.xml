@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.enbiz.api.common.app.repository.main.order.OrdTrxMapper">
+
+	<insert id="save" parameterType="com.enbiz.api.common.app.entity.Ord">
+		INSERT INTO ord (
+			order_no,
+			goods_name,
+			goods_price,
+			buyer_name,
+			buyer_phone,
+			buyer_email,
+			target_pg,
+			order_state,
+			create_dt
+		)
+		VALUES (
+			#{orderNo},
+			#{goodsName},
+			#{goodsPrice},
+			#{buyerName},
+			#{buyerPhone},
+			#{buyerEmail},
+			#{targetPg},
+			#{orderState},
+			now()
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE ord
+		<set>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(targetPg)">target_pg = #{targetPg},</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderState)">order_state = #{orderState},</if>
+			update_dt = now(),
+		</set>
+		<where>
+			AND ord_no = #{ordNo}
+		</where>
+	</update>
+</mapper>

@@ -5,7 +5,7 @@ spring:
   profiles:
     active: local
   application:
-    name: x2bee-api-sample
+    name: enbiz-api-sample
   web:
     locale: ko
   messages:
@@ -14,19 +14,16 @@ spring:
   cache:
     jcache:
       config: classpath:ehcache.xml
+  autoconfigure:
+    exclude: org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
 
 mybatis:
-  type-aliases-package: com.x2bee.api.common.app
+  type-aliases-package: com.enbiz.api.common.app
   mapper-locations: classpath:mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
     default-fetch-size: 100
     default-statement-timeout: 30
-
-app:
-  lang: 
-    defaultCntryCd: KR
-    defaultSystemLanguage: ko
 
 management:
   health:
@@ -43,65 +40,6 @@ management:
       exposure:
         include: "*"
 
-upload:
-  s3:
-    path: static/resources-api/upload_root/
-  customer:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  customerservice:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  delivery:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  display:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx    
-  goods:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 2097152
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif
-  marketing:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  order:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  payment:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  system:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx,txt
-  vendor:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-  editor:
-    maxUploadSizePerFile: 5242880
-    maxUploadSizeImgFile: 1048576
-    maxUploadSize: 20971520
-    extension: jpg,jpeg,png,gif,csv,xls,xlsx
-
 ---
 #
 # LOCAL Setting
@@ -110,7 +48,7 @@ server:
   port: 8090
   servlet:
     context-path: /api/sample
-    
+
 spring:
   config:
     activate:
@@ -120,14 +58,14 @@ spring:
   devtools:
     livereload:
       port: 3${server.port}
-  displayrodb:
-    datasource:
+  datasource:
+    main:
       #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-ro-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
       jdbc-url: jdbc:log4jdbc:postgresql://localhost:5432/postgres?currentSchema=public
       #driver-class-name: org.postgresql.Driver
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
       username: enbiz
-      password: ENC(CE0ByNhs5BdJ1rBWr2LIqeNavBEW12oQdk/+16YJeeV71ZT1+HdBh/l6p2K7F/hs)
+      password: ENC(HrUDmfNQe8eFLPyowYesfad3oA9h3Rt5mGX8EkzNJBtVnC/FDw7X/ZQHr4E7xB6f)
       hikari:
         maximum-pool-size: 5
         minimum-idle: 5
@@ -135,14 +73,13 @@ spring:
         validation-timeout: 5000
         max-lifetime: 1800000
         idle-timeout: 300000
-  displayrwdb:
-    datasource:
+    replica:
       #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
       jdbc-url: jdbc:log4jdbc:postgresql://localhost:5432/postgres?currentSchema=public
       #driver-class-name: org.postgresql.Driver
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
       username: enbiz
-      password: enbiz
+      password: ENC(HrUDmfNQe8eFLPyowYesfad3oA9h3Rt5mGX8EkzNJBtVnC/FDw7X/ZQHr4E7xB6f)
       hikari:
         maximum-pool-size: 5
         minimum-idle: 5
@@ -153,7 +90,7 @@ spring:
 
 springfox:
   documentation:
-    enabled: false
+    enabled: true
 
 jwt:
   service:      
@@ -167,33 +104,6 @@ jwt:
 jasypt:
   encryptor:
     password: local # PROD 환경에서는 환경변수 통해 값을 넣어줄것. 
-    
-app:
-  apiUrl:
-    member: http://localhost:8091
-    order: http://localhost:8092
-    goods: http://localhost:8093
-    display: http://localhost:8094
-    event: http://localhost:8095
-    common: http://localhost:8096
-    
-cloud:
-  aws:
-    credentials:
-      accessKey: # IAM 사용자 엑세스 키. 환경변수
-      secretKey: # IAM 사용자 비밀 엑세스 키. 환경변수
-    s3:
-      bucket: thm-dev-pri-product-image-s3
-    s3-video-origin:
-      bucket: thm-dev-pri-media-origin-s3
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
-
-aws:
-  kms:
-    keyArn: # aws KMS keyarn. 환경변수
           
 ---
 #
@@ -202,47 +112,12 @@ aws:
 server:
   port: 9022
   servlet:
-    context-path: /api/common
-  zipkin:
-    base-url: http://zipkin.istio-system:9411/
-  sleuth:
-    sampler:
-      probability: 0
+    context-path: /api/sample
 
 spring:
   config:
     activate:
       on-profile: dev
-  displayrodb:
-    datasource:
-      #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-ro-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      jdbc-url: jdbc:log4jdbc:postgresql://thm-dev-product-cluster.cluster-ro-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      #driver-class-name: org.postgresql.Driver
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
-      username: pd_app
-      password: ENC(e7lXJrDTkUzD3rvwlxc/2K3tenx+CP4V4cErGh7k0/v0zwpNHOgsaNOaX5hIOQgU)
-      hikari:
-        maximum-pool-size: 5
-        minimum-idle: 5
-        connection-timeout: 30000
-        validation-timeout: 5000
-        max-lifetime: 1800000
-        idle-timeout: 300000
-  displayrwdb:
-    datasource:
-      #jdbc-url: jdbc:postgresql://thm-dev-product-cluster.cluster-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      jdbc-url: jdbc:log4jdbc:postgresql://thm-dev-product-cluster.cluster-c8ozhq4tkh6g.ap-northeast-2.rds.amazonaws.com:5432/thehandsome?currentSchema=pd_adm
-      #driver-class-name: org.postgresql.Driver
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy    
-      username: pd_app
-      password: ENC(e7lXJrDTkUzD3rvwlxc/2K3tenx+CP4V4cErGh7k0/v0zwpNHOgsaNOaX5hIOQgU)
-      hikari:
-        maximum-pool-size: 5
-        minimum-idle: 5
-        connection-timeout: 30000
-        validation-timeout: 5000
-        max-lifetime: 1800000
-        idle-timeout: 300000
 
 jwt:
   service:      
@@ -255,32 +130,5 @@ jwt:
 
 jasypt:
   encryptor:
-    password: local # PROD 환경에서는 환경변수 통해 값을 넣어줄것. 
-    
-app:
-  apiUrl:
-    member: http://x2bee-api-member-svc
-    order: http://x2bee-api-order-svc
-    goods: http://x2bee-api-goods-svc
-    display: http://x2bee-api-display-svc
-    event: http://x2bee-api-event-svc
-    common: http://x2bee-api-common-svc
-    
-cloud:
-  aws:
-    credentials:
-      accessKey: # IAM 사용자 엑세스 키. 환경변수
-      secretKey: # IAM 사용자 비밀 엑세스 키. 환경변수
-    s3:
-      bucket: thm-dev-pri-product-image-s3
-    s3-video-origin:
-      bucket: thm-dev-pri-media-origin-s3
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
-
-aws:
-  kms:
-    keyArn: # aws KMS keyarn. 환경변수
-    
+    password: local
+          

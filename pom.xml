@@ -126,6 +126,12 @@
 
 	<build>
 		<finalName>app</finalName>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -138,7 +144,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.x2bee.api.common.X2beeApiCommonApplication</mainClass>
+					<mainClass>com.enbiz.api.common.ApiSampleApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -147,11 +153,6 @@
 	<!-- // Nexus Setting -->
 	<repositories>
 		<!-- Repo -->
-		<repository>   
-			<id>local-repo</id>   
-			<name>local-repo</name>   
-			<url>file://${project.basedir}/libs</url> 
-		</repository>
 	</repositories>
 	<pluginRepositories>
 		<!-- Repo -->
